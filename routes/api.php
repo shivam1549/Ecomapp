@@ -30,6 +30,10 @@ Route::middleware('auth:admin-api')->group(function () {
     Route::get('/admin/categories/{id}', [CategoryController::class, 'show']);
     Route::put('/admin/categories/{id}', [CategoryController::class, 'update']);
     Route::delete('/admin/categories/{id}', [CategoryController::class, 'destroy']);
+
+    Route::apiResource('admin/products', \App\Http\Controllers\Api\ProductController::class);
+    // routes/api.php
+    Route::apiResource('admin/currencies', \App\Http\Controllers\Api\CurrencyController::class);
 });
 
 // Admin Routes
@@ -38,4 +42,6 @@ Route::middleware('auth:admin-api')->group(function () {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+
+// Currency Routes
 
