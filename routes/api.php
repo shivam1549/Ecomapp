@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\AdminAuthController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\Web\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,11 @@ Route::middleware('auth:admin-api')->group(function () {
     Route::apiResource('admin/products', \App\Http\Controllers\Api\ProductController::class);
     // routes/api.php
     Route::apiResource('admin/currencies', \App\Http\Controllers\Api\CurrencyController::class);
+
+    Route::apiResource('admin/orders', \App\Http\Controllers\Api\OrderController::class);
+    Route::patch('admin/orders/{id}/status', [\App\Http\Controllers\Api\OrderController::class, 'updateStatus']);
+
+
 });
 
 // Admin Routes
@@ -42,6 +48,7 @@ Route::middleware('auth:admin-api')->group(function () {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+Route::post('/checkout', [CheckoutController::class, 'store']);
 
 // Currency Routes
 
